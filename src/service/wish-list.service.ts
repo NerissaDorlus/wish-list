@@ -1,4 +1,6 @@
 import { getDb } from "../gateway/mongo"
+
+
 interface Wish {
     name: string;
     type: string;
@@ -17,4 +19,8 @@ export const createWish = async (wish: Wish) => {
     }
     const { insertedId} = await col.insertOne(wish);
     return insertedId.toString()
+}
+export const getWishes = async() => {
+    const col = await getWishesCollection();
+    return col.find().toArray()
 }
